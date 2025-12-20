@@ -25,7 +25,7 @@ The demo site will be available at `http://localhost:3000`.
 ## Project Structure
 
 ```
-geez-library/
+geez-input/
 ├── src/                    # Library source code
 │   ├── components/        # React components
 │   ├── engine.ts         # Core transformation engine

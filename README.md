@@ -7,7 +7,6 @@ A type-safe React library for Geez (Ethiopic) script input with phonetic keyboar
 - **Type-Safe**: Built with TypeScript for full type safety with comprehensive JSDoc documentation
 - **Phonetic Keyboard**: Intuitive Latin-to-Geez transformation following standard conventions
 - **Customizable Components**: Pre-styled input and textarea components with toggle support
-- **React Hook**: `useGeez` hook for custom implementations
 - **Form Library Support**: Works with React Hook Form, Formik, and other form libraries
 - **Controlled & Uncontrolled**: Full support for both component patterns
 
@@ -72,27 +71,6 @@ function MyForm() {
 }
 ```
 
-## Hook API
-
-### useGeez
-
-For custom implementations, use the `useGeez` hook:
-
-```tsx
-import { useGeez } from 'geez-input'
-
-function CustomInput() {
-  const { onKeyDown } = useGeez({
-    enabled: true,
-    onTransform: (result) => {
-      console.log('Transformed:', result)
-    }
-  })
-
-  return <input onKeyDown={onKeyDown} />
-}
-```
-
 ## Phonetic Guide
 
 The library uses intuitive phonetic mappings:
@@ -147,39 +125,9 @@ Props:
 - `className?: string` - Additional CSS classes
 - `...TextareaHTMLAttributes` - All standard HTML textarea attributes
 
-### Hooks
-
-#### useGeez(options)
-
-Options:
-- `enabled?: boolean` - Enable/disable transformation (default: `true`)
-- `onTransform?: (result: EngineResult) => void` - Callback after each transformation
-
-Returns:
-- `onKeyDown: KeyboardEventHandler` - Event handler for keyboard events
-
-### Engine
-
-#### GeezEngine.transform(textBefore, textAfter, key)
-
-Core transformation method:
-- `textBefore: string` - Text before cursor
-- `textAfter: string` - Text after cursor
-- `key: string` - Key pressed
-- Returns: `EngineResult`
-
 ## TypeScript Support
 
-The library is written in TypeScript and provides comprehensive type definitions:
-
-```tsx
-import type {
-  GeezOptions,
-  EngineResult,
-  PhoneticMap,
-  SyllableMap
-} from 'geez-input'
-```
+The library is written in TypeScript and provides comprehensive type definitions for all component props.
 
 ## Browser Support
 
