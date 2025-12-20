@@ -1,0 +1,71 @@
+{
+  "name": "geez-input",
+  "version": "1.0.0",
+  "description": "Type-safe React library for Geez (Ethiopic) script input with phonetic keyboard support",
+  "keywords": [
+    "geez",
+    "ethiopic",
+    "amharic",
+    "tigrinya",
+    "react",
+    "typescript",
+    "keyboard",
+    "input",
+    "phonetic"
+  ],
+  "homepage": "https://github.com/onesamket/geez-input#readme",
+  "bugs": {
+    "url": "https://github.com/onesamket/geez-input/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onesamket/geez-input.git"
+  },
+  "license": "MIT",
+  "author":{
+    "name": "Tewodros Birhanu",
+    "email": "onesamket@gmail.com",
+    "url": "https://github.com/onesamket"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "type": "module",
+  "main": "./dist/main.js",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "types": "./dist/main.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npx vite build",
+    "dev": "npx vite",
+    "preview": "npx vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "5.1.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "typescript": "^5",
+    "vite": "7.3.0",
+    "vite-plugin-dts": "4.5.4",
+    "vite-plugin-lib-inject-css": "2.2.2"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  }
+}

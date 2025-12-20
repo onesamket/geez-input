@@ -1,0 +1,16 @@
+src/
+scripts/
+public/
+*.config.ts
+*.config.js
+tsconfig*.json
+.gitignore
+.eslintrc.cjs
+index.html
+vite-env.d.ts
+node_modules/
+.env
+.env.local
+.DS_Store
+dist/
+*.log
