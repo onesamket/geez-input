@@ -95,13 +95,6 @@ export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
   ({ defaultGeez = true, wrapperClassName, inputClassName, buttonClassName, className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
     const [geezEnabled, setGeezEnabled] = useState(defaultGeez)
 
-    // Prepare input props - only include value if it's defined to avoid controlled/uncontrolled warning
-    // className is already extracted in function parameters and will be merged separately
-    const finalInputProps: React.InputHTMLAttributes<HTMLInputElement> = {
-      ...props,
-      ...(value !== undefined && { value }),
-    }
-
     const { onKeyDown: onKeyDownGeez } = useGeez({ enabled: geezEnabled })
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -123,7 +116,8 @@ export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
     return (
       <div className={cn("geez-input-wrapper", wrapperClassName)}>
         <input
-          {...finalInputProps}
+          {...props}
+          {...(value !== undefined && { value })}
           ref={ref}
           onKeyDown={handleKeyDown}
           onChange={handleChange}

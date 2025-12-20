@@ -93,13 +93,6 @@ export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
   ({ defaultGeez = true, wrapperClassName, textareaClassName, buttonClassName, className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
     const [geezEnabled, setGeezEnabled] = useState(defaultGeez)
 
-    // Prepare textarea props - only include value if it's defined to avoid controlled/uncontrolled warning
-    // className is already extracted in function parameters and will be merged separately
-    const finalTextareaProps: React.TextareaHTMLAttributes<HTMLTextAreaElement> = {
-      ...props,
-      ...(value !== undefined && { value }),
-    }
-
     const { onKeyDown: onKeyDownGeez } = useGeez({ enabled: geezEnabled })
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -121,7 +114,8 @@ export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
     return (
       <div className={cn("geez-textarea-wrapper", wrapperClassName)}>
         <textarea
-          {...finalTextareaProps}
+          {...props}
+          {...(value !== undefined && { value })}
           ref={ref}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
