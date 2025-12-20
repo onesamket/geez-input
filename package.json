@@ -1,6 +1,6 @@
 {
   "name": "geez-input",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Type-safe React library for Geez (Ethiopic) script input with phonetic keyboard support",
   "keywords": [
     "geez",
