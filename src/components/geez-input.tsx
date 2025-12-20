@@ -8,7 +8,8 @@ import "./geez-input.css"
  * Props for the GeezInput component
  * Extends all standard HTML input attributes
  */
-export interface GeezInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface GeezInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className'> {
   /**
    * Whether Geez input mode is enabled by default
    * @default true
@@ -20,8 +21,14 @@ export interface GeezInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   wrapperClassName?: string
   /**
    * Additional CSS classes to apply to the input field
+   * This is combined with the className prop for backward compatibility
    */
   inputClassName?: string
+  /**
+   * Additional CSS classes to apply to the input field
+   * This is an alias for inputClassName for consistency with standard HTML inputs
+   */
+  className?: string
   /**
    * Additional CSS classes to apply to the toggle button
    */

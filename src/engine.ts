@@ -89,11 +89,12 @@ export class GeezEngine {
       };
     }
 
-    if (SYLLABLES[lastChar] && SYLLABLES[lastChar][key]) {
+    const lastCharSyllables = SYLLABLES[lastChar];
+    if (lastCharSyllables && lastCharSyllables[key]) {
       return {
         transformedValue:
           textBeforeCursor.slice(0, -1) +
-          SYLLABLES[lastChar][key] +
+          lastCharSyllables[key] +
           textAfterCursor,
         newCursorPosition: textBeforeCursor.length,
         isReplacement: true,
@@ -102,17 +103,21 @@ export class GeezEngine {
 
     if (["a", "e", "i"].includes(key)) {
       const sadisBase = this.findSadisBase(lastChar);
-      if (sadisBase && SYLLABLES[sadisBase]) {
-        const doubleVowelKey = key + key;
-        if (SYLLABLES[sadisBase][doubleVowelKey]) {
-          return {
-            transformedValue:
-              textBeforeCursor.slice(0, -1) +
-              SYLLABLES[sadisBase][doubleVowelKey] +
-              textAfterCursor,
-            newCursorPosition: textBeforeCursor.length,
-            isReplacement: true,
-          };
+      if (sadisBase) {
+        const sadisBaseSyllables = SYLLABLES[sadisBase];
+        if (sadisBaseSyllables) {
+          const doubleVowelKey = key + key;
+          const doubleVowelForm = sadisBaseSyllables[doubleVowelKey];
+          if (doubleVowelForm) {
+            return {
+              transformedValue:
+                textBeforeCursor.slice(0, -1) +
+                doubleVowelForm +
+                textAfterCursor,
+              newCursorPosition: textBeforeCursor.length,
+              isReplacement: true,
+            };
+          }
         }
       }
     }

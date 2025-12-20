@@ -8,7 +8,8 @@ import "./geez-textarea.css"
  * Props for the GeezTextArea component
  * Extends all standard HTML textarea attributes
  */
-export interface GeezTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface GeezTextAreaProps
+  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'className'> {
   /**
    * Whether Geez input mode is enabled by default
    * @default true
@@ -20,8 +21,14 @@ export interface GeezTextAreaProps extends React.TextareaHTMLAttributes<HTMLText
   wrapperClassName?: string
   /**
    * Additional CSS classes to apply to the textarea field
+   * This is combined with the className prop for backward compatibility
    */
   textareaClassName?: string
+  /**
+   * Additional CSS classes to apply to the textarea field
+   * This is an alias for textareaClassName for consistency with standard HTML textareas
+   */
+  className?: string
   /**
    * Additional CSS classes to apply to the toggle button
    */
