@@ -3,10 +3,7 @@
 # dependencies
 /node_modules
 
-# next.js
-/.next/
-/out/
-
+bun.lock
 # production
 /build
 /dist
