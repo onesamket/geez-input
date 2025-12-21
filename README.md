@@ -1,4 +1,4 @@
-# Geez Library
+# Geez Input Library
 
 A type-safe React library for Geez (Ethiopic) script input with phonetic keyboard support. Write Amharic, Tigrinya, and other Ethiopic languages using Latin characters that automatically transform to Geez script.
 
@@ -166,7 +166,7 @@ Type a consonant followed by a vowel:
 ### Double Vowels
 Type the same vowel twice for alternate forms:
 - `ha` → ሃ
-- `lie` → ሌ
+- `lee` → ሌ
 
 ### Punctuation
 - `:` → ፡ (word separator)
