@@ -1,8 +1,6 @@
 import type React from "react"
 import { useState, forwardRef } from "react"
 import { useGeez } from "../use-geez"
-import { cn } from "./utils"
-import "./geez-textarea.css"
 
 /**
  * Props for the GeezTextArea component
@@ -29,23 +27,17 @@ export interface GeezTextAreaProps
    * This is an alias for textareaClassName for consistency with standard HTML textareas
    */
   className?: string
-  /**
-   * Additional CSS classes to apply to the toggle button
-   */
-  buttonClassName?: string
 }
 
 /**
- * Styled textarea component with built-in Geez phonetic keyboard support
+ * Textarea component with built-in Geez phonetic keyboard support
  *
  * Features:
- * - Toggle button to switch between Geez and English input modes
+ * - Press Cmd+Shift+S (or Ctrl+Shift+S) to toggle between Geez and English input modes
  * - Phonetic transformation for longer text
  * - Full support for controlled and uncontrolled component patterns
  * - Forward ref support for form libraries
- * - Styled with CSS classes that can be customized via className props
- * - Supports Tailwind CSS, CSS modules, or any CSS framework
- * - Minimum height of 150px for comfortable writing
+ * - Supports any CSS framework via className props
  *
  * @example
  * \`\`\`tsx
@@ -73,36 +65,21 @@ export interface GeezTextAreaProps
  * // Start with English mode
  * <GeezTextArea defaultGeez={false} placeholder="Type here..." />
  * \`\`\`
- *
- * @example
- * \`\`\`tsx
- * // Custom styling with Tailwind CSS
- * <GeezTextArea
- *   wrapperClassName="mb-4"
- *   textareaClassName="rounded-lg shadow-md resize-none"
- *   buttonClassName="hover:opacity-80"
- *   placeholder="Write here..."
- * />
- * \`\`\`
- *
- * @example
- * \`\`\`tsx
- * // Custom styling with CSS classes
- * <GeezTextArea
- *   wrapperClassName="my-custom-wrapper"
- *   textareaClassName="my-custom-textarea"
- *   buttonClassName="my-custom-button"
- *   placeholder="Write here..."
- * />
- * \`\`\`
  */
 export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
-  ({ defaultGeez = true, wrapperClassName, textareaClassName, buttonClassName, className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
+  ({ defaultGeez = true, wrapperClassName, textareaClassName, className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
     const [geezEnabled, setGeezEnabled] = useState(defaultGeez)
 
     const { onKeyDown: onKeyDownGeez } = useGeez({ enabled: geezEnabled })
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      // Handle Cmd+Shift+S (or Ctrl+Shift+S on Windows/Linux) to toggle Geez mode
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'S') {
+        e.preventDefault()
+        setGeezEnabled(prev => !prev)
+        return
+      }
+
       // Call the Geez handler first
       onKeyDownGeez(e)
       // Then call any user-provided handler
@@ -119,28 +96,15 @@ export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
     }
 
     return (
-      <div className={cn("geez-textarea-wrapper", wrapperClassName)}>
+      <div className={wrapperClassName}>
         <textarea
           {...props}
           {...(value !== undefined && { value })}
           ref={ref}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
-          className={cn("geez-textarea-field", className, textareaClassName)}
+          className={className || textareaClassName}
         />
-        <button
-          type="button"
-          onClick={() => setGeezEnabled(!geezEnabled)}
-          className={cn(
-            "geez-textarea-toggle",
-            geezEnabled ? "geez-textarea-toggle--active" : "geez-textarea-toggle--inactive",
-            buttonClassName
-          )}
-          title={geezEnabled ? "Switch to English" : "Switch to Ge'ez"}
-          tabIndex={-1}
-        >
-          {geezEnabled ? "አማ" : "EN"}
-        </button>
       </div>
     )
   },

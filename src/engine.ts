@@ -89,6 +89,24 @@ export class GeezEngine {
       };
     }
 
+    // Check for multi-character Latin consonants (e.g., "ch", "sh", "zh", "gn", "rR")
+    // This must happen before single character checks to handle sequences like "c" + "h" → "ch" → "ች"
+    if (
+      CONSONANTS[combined] &&
+      lastChar.length === 1 &&
+      /^[a-zA-Z]$/.test(lastChar) &&
+      /^[a-zA-Z]$/.test(key)
+    ) {
+      return {
+        transformedValue:
+          textBeforeCursor.slice(0, -1) +
+          CONSONANTS[combined] +
+          textAfterCursor,
+        newCursorPosition: textBeforeCursor.length,
+        isReplacement: true,
+      };
+    }
+
     const lastCharSyllables = SYLLABLES[lastChar];
     if (lastCharSyllables && lastCharSyllables[key]) {
       return {
@@ -101,7 +119,27 @@ export class GeezEngine {
       };
     }
 
-    if (["a", "e", "i"].includes(key)) {
+    // Check if last character is a vowel form (not base) and key is 'e' - convert to 'ee' form (5th form/Hamis)
+    // This handles cases like "hie" where 'i' form (ሂ) + 'e' should become 'ee' form (ሄ)
+    if (key === "e" && lastChar) {
+      const sadisBase = this.findSadisBase(lastChar);
+      // Only convert if lastChar is NOT the base itself (i.e., it's a modified vowel form)
+      if (sadisBase && sadisBase !== lastChar) {
+        const sadisBaseSyllables = SYLLABLES[sadisBase];
+        if (sadisBaseSyllables && sadisBaseSyllables["ee"]) {
+          return {
+            transformedValue:
+              textBeforeCursor.slice(0, -1) +
+              sadisBaseSyllables["ee"] +
+              textAfterCursor,
+            newCursorPosition: textBeforeCursor.length,
+            isReplacement: true,
+          };
+        }
+      }
+    }
+
+    if (["a", "i"].includes(key)) {
       const sadisBase = this.findSadisBase(lastChar);
       if (sadisBase) {
         const sadisBaseSyllables = SYLLABLES[sadisBase];
