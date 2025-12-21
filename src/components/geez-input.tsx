@@ -1,8 +1,6 @@
 import type React from "react"
 import { useState, forwardRef } from "react"
 import { useGeez } from "../use-geez"
-import { cn } from "./utils"
-import "./geez-input.css"
 
 /**
  * Props for the GeezInput component
@@ -29,22 +27,17 @@ export interface GeezInputProps
    * This is an alias for inputClassName for consistency with standard HTML inputs
    */
   className?: string
-  /**
-   * Additional CSS classes to apply to the toggle button
-   */
-  buttonClassName?: string
 }
 
 /**
- * Styled input component with built-in Geez phonetic keyboard support
+ * Input component with built-in Geez phonetic keyboard support
  *
  * Features:
- * - Toggle button to switch between Geez and English input modes
+ * - Press Cmd+Shift+S (or Ctrl+Shift+S) to toggle between Geez and English input modes
  * - Phonetic transformation (type 'hello' → 'ሀልሎ')
  * - Full support for controlled and uncontrolled component patterns
  * - Forward ref support for form libraries
- * - Styled with CSS classes that can be customized via className props
- * - Supports Tailwind CSS, CSS modules, or any CSS framework
+ * - Supports any CSS framework via className props
  *
  * @example
  * \`\`\`tsx
@@ -75,36 +68,21 @@ export interface GeezInputProps
  *   return <GeezInput {...register('name')} />
  * }
  * \`\`\`
- *
- * @example
- * \`\`\`tsx
- * // Custom styling with Tailwind CSS
- * <GeezInput
- *   wrapperClassName="mb-4"
- *   inputClassName="rounded-lg shadow-md"
- *   buttonClassName="hover:opacity-80"
- *   placeholder="Type here..."
- * />
- * \`\`\`
- *
- * @example
- * \`\`\`tsx
- * // Custom styling with CSS classes
- * <GeezInput
- *   wrapperClassName="my-custom-wrapper"
- *   inputClassName="my-custom-input"
- *   buttonClassName="my-custom-button"
- *   placeholder="Type here..."
- * />
- * \`\`\`
  */
 export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
-  ({ defaultGeez = true, wrapperClassName, inputClassName, buttonClassName, className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
+  ({ defaultGeez = true, wrapperClassName, inputClassName, className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
     const [geezEnabled, setGeezEnabled] = useState(defaultGeez)
 
     const { onKeyDown: onKeyDownGeez } = useGeez({ enabled: geezEnabled })
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      // Handle Cmd+Shift+S (or Ctrl+Shift+S on Windows/Linux) to toggle Geez mode
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'S') {
+        e.preventDefault()
+        setGeezEnabled(prev => !prev)
+        return
+      }
+
       // Call the Geez handler first
       onKeyDownGeez(e)
       // Then call any user-provided handler
@@ -121,28 +99,15 @@ export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
     }
 
     return (
-      <div className={cn("geez-input-wrapper", wrapperClassName)}>
+      <div className={wrapperClassName}>
         <input
           {...props}
           {...(value !== undefined && { value })}
           ref={ref}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
-          className={cn("geez-input-field", className, inputClassName)}
+          className={className || inputClassName}
         />
-        <button
-          type="button"
-          onClick={() => setGeezEnabled(!geezEnabled)}
-          className={cn(
-            "geez-input-toggle",
-            geezEnabled ? "geez-input-toggle--active" : "geez-input-toggle--inactive",
-            buttonClassName
-          )}
-          title={geezEnabled ? "Switch to English" : "Switch to Ge'ez"}
-          tabIndex={-1}
-        >
-          {geezEnabled ? "አማ" : "EN"}
-        </button>
       </div>
     )
   },
