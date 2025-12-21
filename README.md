@@ -158,15 +158,15 @@ The library uses intuitive phonetic mappings:
 
 ### Syllables
 Type a consonant followed by a vowel:
-- `ha` → ሀ
+- `he` → ሀ
 - `lu` → ሉ
 - `mi` → ሚ
 - `sha` → ሻ
 
 ### Double Vowels
 Type the same vowel twice for alternate forms:
-- `haa` → ሃ
-- `lee` → ሌ
+- `ha` → ሃ
+- `lie` → ሌ
 
 ### Punctuation
 - `:` → ፡ (word separator)
