@@ -91,12 +91,8 @@ function MyForm() {
 A styled input component with built-in Geez phonetic keyboard support.
 
 **Props:**
-- All standard HTML input attributes (`type`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `pattern`, `autoComplete`, `autoFocus`, `name`, `id`, `aria-*`, etc.)
-- `defaultGeez?: boolean` - Enable Geez mode by default (default: `true`)
-- `className?: string` - CSS classes for the input field
-- `wrapperClassName?: string` - CSS classes for the wrapper div
-- `inputClassName?: string` - Additional CSS classes for the input field
-- `buttonClassName?: string` - CSS classes for the toggle button
+- All standard HTML input attributes (`type`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `pattern`, `autoComplete`, `autoFocus`, `name`, `id`, `aria-*`, `className`, etc.)
+- `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
 
 ```tsx
 import { GeezInput } from 'geez-input'
@@ -123,12 +119,8 @@ function MyForm() {
 A styled textarea component for longer text input.
 
 **Props:**
-- All standard HTML textarea attributes (`rows`, `cols`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `wrap`, `spellCheck`, `name`, `id`, `aria-*`, etc.)
-- `defaultGeez?: boolean` - Enable Geez mode by default (default: `true`)
-- `className?: string` - CSS classes for the textarea field
-- `wrapperClassName?: string` - CSS classes for the wrapper div
-- `textareaClassName?: string` - Additional CSS classes for the textarea field
-- `buttonClassName?: string` - CSS classes for the toggle button
+- All standard HTML textarea attributes (`rows`, `cols`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `wrap`, `spellCheck`, `name`, `id`, `aria-*`, `className`, etc.)
+- `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
 
 ```tsx
 import { GeezTextArea } from 'geez-input'
@@ -188,22 +180,14 @@ Type phonetically to get Geez text:
 #### GeezInput
 
 Props:
-- `defaultGeez?: boolean` - Enable Geez mode by default (default: `true`)
-- `className?: string` - Additional CSS classes for the input field
-- `wrapperClassName?: string` - Additional CSS classes for the wrapper
-- `inputClassName?: string` - Additional CSS classes for the input field
-- `buttonClassName?: string` - Additional CSS classes for the toggle button
-- `...InputHTMLAttributes` - All standard HTML input attributes with full TypeScript support
+- `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
+- `...InputHTMLAttributes` - All standard HTML input attributes (including `className`) with full TypeScript support
 
 #### GeezTextArea
 
 Props:
-- `defaultGeez?: boolean` - Enable Geez mode by default (default: `true`)
-- `className?: string` - Additional CSS classes for the textarea field
-- `wrapperClassName?: string` - Additional CSS classes for the wrapper
-- `textareaClassName?: string` - Additional CSS classes for the textarea field
-- `buttonClassName?: string` - Additional CSS classes for the toggle button
-- `...TextareaHTMLAttributes` - All standard HTML textarea attributes with full TypeScript support
+- `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
+- `...TextareaHTMLAttributes` - All standard HTML textarea attributes (including `className`) with full TypeScript support
 
 ### Type Exports
 
