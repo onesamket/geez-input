@@ -1,5 +1,5 @@
 import type React from "react"
-import { useState, forwardRef } from "react"
+import { forwardRef } from "react"
 import { useGeez } from "../use-geez"
 
 /**
@@ -7,37 +7,22 @@ import { useGeez } from "../use-geez"
  * Extends all standard HTML input attributes
  */
 export interface GeezInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className'> {
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
-   * Whether Geez input mode is enabled by default
-   * @default true
+   * Input mode: "geez" for phonetic transformation, "latin" for standard input
+   * @default "geez"
    */
-  defaultGeez?: boolean
-  /**
-   * Additional CSS classes to apply to the input wrapper
-   */
-  wrapperClassName?: string
-  /**
-   * Additional CSS classes to apply to the input field
-   * This is combined with the className prop for backward compatibility
-   */
-  inputClassName?: string
-  /**
-   * Additional CSS classes to apply to the input field
-   * This is an alias for inputClassName for consistency with standard HTML inputs
-   */
-  className?: string
+  mode?: "geez" | "latin"
 }
 
 /**
  * Input component with built-in Geez phonetic keyboard support
  *
  * Features:
- * - Press Cmd+Shift+S (or Ctrl+Shift+S) to toggle between Geez and English input modes
  * - Phonetic transformation (type 'hello' → 'ሀልሎ')
  * - Full support for controlled and uncontrolled component patterns
  * - Forward ref support for form libraries
- * - Supports any CSS framework via className props
+ * - Supports any CSS framework via standard className prop
  *
  * @example
  * \`\`\`tsx
@@ -70,22 +55,15 @@ export interface GeezInputProps
  * \`\`\`
  */
 export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
-  ({ defaultGeez = true, wrapperClassName, inputClassName, className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
-    const [geezEnabled, setGeezEnabled] = useState(defaultGeez)
-
-    const { onKeyDown: onKeyDownGeez } = useGeez({ enabled: geezEnabled })
+  ({ mode = "geez", className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
+    const { onKeyDown: onKeyDownGeez } = useGeez({ enabled: mode === "geez" })
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      // Handle Cmd+Shift+S (or Ctrl+Shift+S on Windows/Linux) to toggle Geez mode
-      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'S') {
-        e.preventDefault()
-        setGeezEnabled(prev => !prev)
-        return
+      // Only call Geez handler when mode is "geez"
+      if (mode === "geez") {
+        onKeyDownGeez(e)
       }
-
-      // Call the Geez handler first
-      onKeyDownGeez(e)
-      // Then call any user-provided handler
+      // Call user-provided handler
       if (onKeyDownProp) {
         onKeyDownProp(e)
       }
@@ -99,16 +77,14 @@ export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
     }
 
     return (
-      <div className={wrapperClassName}>
-        <input
-          {...props}
-          {...(value !== undefined && { value })}
-          ref={ref}
-          onKeyDown={handleKeyDown}
-          onChange={handleChange}
-          className={className || inputClassName}
-        />
-      </div>
+      <input
+        {...props}
+        {...(value !== undefined && { value })}
+        ref={ref}
+        onKeyDown={handleKeyDown}
+        onChange={handleChange}
+        className={className}
+      />
     )
   },
 )

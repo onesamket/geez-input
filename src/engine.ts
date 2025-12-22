@@ -107,6 +107,59 @@ export class GeezEngine {
       };
     }
 
+    // Handle wa-series: consonant + ው + vowel → labialized form
+    // e.g., ክ + ው + a → ኳ (kwa)
+    // This must be checked BEFORE regular syllable transformation to prevent ው→ዋ transformation
+    if (lastChar === "ው" && ["a", "i", "e", "u"].includes(key)) {
+      const charBeforeW = textBeforeCursor.slice(-2, -1);
+      const charBeforeWSyllables = SYLLABLES[charBeforeW];
+
+      if (charBeforeWSyllables) {
+        // Map vowel keys to wa-series keys
+        const waSeriesKey =
+          key === "a"
+            ? "wa"
+            : key === "i"
+            ? "wi"
+            : key === "e"
+            ? "we"
+            : key === "u"
+            ? "wu"
+            : null;
+
+        if (waSeriesKey && charBeforeWSyllables[waSeriesKey]) {
+          return {
+            transformedValue:
+              textBeforeCursor.slice(0, -2) +
+              charBeforeWSyllables[waSeriesKey] +
+              textAfterCursor,
+            newCursorPosition: textBeforeCursor.length - 1,
+            isReplacement: true,
+          };
+        }
+      }
+    }
+
+    // Handle wa-series ee form: consonant + we (ኰ, ቈ, etc.) + e → wee form (ኴ, ቌ, etc.)
+    // e.g., ኰ + e → ኴ (kwee)
+    if (key === "e") {
+      const charBeforeW = this.findCharBeforeWaSeries(lastChar);
+      if (charBeforeW) {
+        const charBeforeWSyllables = SYLLABLES[charBeforeW];
+        if (charBeforeWSyllables && charBeforeWSyllables["wee"]) {
+          return {
+            transformedValue:
+              textBeforeCursor.slice(0, -1) +
+              charBeforeWSyllables["wee"] +
+              textAfterCursor,
+            newCursorPosition: textBeforeCursor.length,
+            isReplacement: true,
+          };
+        }
+      }
+    }
+
+    // Regular syllable transformation (for non-wa-series cases)
     const lastCharSyllables = SYLLABLES[lastChar];
     if (lastCharSyllables && lastCharSyllables[key]) {
       return {
@@ -196,6 +249,30 @@ export class GeezEngine {
     for (const [sadis, forms] of Object.entries(SYLLABLES)) {
       if (sadis === char) return sadis;
       if (Object.values(forms).includes(char)) return sadis;
+    }
+    return null;
+  }
+
+  /**
+   * Find the base consonant for a wa-series character
+   *
+   * This checks if a character is a "we" form (e.g., ኰ, ቈ, ጐ, ኈ)
+   * and returns its base consonant if it is.
+   *
+   * @param char - The character to check
+   * @returns The base consonant character, or null if not a we form
+   * @private
+   *
+   * @example
+   * \`\`\`ts
+   * GeezEngine.findCharBeforeWaSeries('ኰ') // returns 'ክ'
+   * GeezEngine.findCharBeforeWaSeries('ቈ') // returns 'ቅ'
+   * GeezEngine.findCharBeforeWaSeries('ላ') // returns null
+   * \`\`\`
+   */
+  private static findCharBeforeWaSeries(char: string): string | null {
+    for (const [sadis, forms] of Object.entries(SYLLABLES)) {
+      if (forms["we"] === char) return sadis;
     }
     return null;
   }

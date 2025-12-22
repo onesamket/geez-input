@@ -2,6 +2,12 @@
 
 A type-safe React library for Geez (Ethiopic) script input with phonetic keyboard support. Write Amharic, Tigrinya, and other Ethiopic languages using Latin characters that automatically transform to Geez script.
 
+## About Geez Script
+
+Geez script (ግዕዝ), also known as Ethiopic script, is an ancient writing system used for [Amharic](https://en.wikipedia.org/wiki/Amharic) and other Ethiopian Semitic languages. It's an alphasyllabary where each character represents a consonant-vowel combination. This library makes it easy to type Geez script using familiar Latin characters with phonetic mappings, supporting labialized forms (wa-series) and all standard syllable transformations.
+
+**📖 Learn more about Amharic and its writing system:** [Wikipedia - Amharic](https://en.wikipedia.org/wiki/Amharic)
+
 ## Features
 
 - **Fully Type-Safe**: Built with TypeScript for complete IntelliSense support and autocomplete
@@ -91,12 +97,8 @@ function MyForm() {
 A styled input component with built-in Geez phonetic keyboard support.
 
 **Props:**
-- All standard HTML input attributes (`type`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `pattern`, `autoComplete`, `autoFocus`, `name`, `id`, `aria-*`, etc.)
-- `defaultGeez?: boolean` - Enable Geez mode by default (default: `true`)
-- `className?: string` - CSS classes for the input field
-- `wrapperClassName?: string` - CSS classes for the wrapper div
-- `inputClassName?: string` - Additional CSS classes for the input field
-- `buttonClassName?: string` - CSS classes for the toggle button
+- All standard HTML input attributes (`type`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `pattern`, `autoComplete`, `autoFocus`, `name`, `id`, `aria-*`, `className`, etc.)
+- `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
 
 ```tsx
 import { GeezInput } from 'geez-input'
@@ -123,12 +125,8 @@ function MyForm() {
 A styled textarea component for longer text input.
 
 **Props:**
-- All standard HTML textarea attributes (`rows`, `cols`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `wrap`, `spellCheck`, `name`, `id`, `aria-*`, etc.)
-- `defaultGeez?: boolean` - Enable Geez mode by default (default: `true`)
-- `className?: string` - CSS classes for the textarea field
-- `wrapperClassName?: string` - CSS classes for the wrapper div
-- `textareaClassName?: string` - Additional CSS classes for the textarea field
-- `buttonClassName?: string` - CSS classes for the toggle button
+- All standard HTML textarea attributes (`rows`, `cols`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `wrap`, `spellCheck`, `name`, `id`, `aria-*`, `className`, etc.)
+- `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
 
 ```tsx
 import { GeezTextArea } from 'geez-input'
@@ -188,22 +186,14 @@ Type phonetically to get Geez text:
 #### GeezInput
 
 Props:
-- `defaultGeez?: boolean` - Enable Geez mode by default (default: `true`)
-- `className?: string` - Additional CSS classes for the input field
-- `wrapperClassName?: string` - Additional CSS classes for the wrapper
-- `inputClassName?: string` - Additional CSS classes for the input field
-- `buttonClassName?: string` - Additional CSS classes for the toggle button
-- `...InputHTMLAttributes` - All standard HTML input attributes with full TypeScript support
+- `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
+- `...InputHTMLAttributes` - All standard HTML input attributes (including `className`) with full TypeScript support
 
 #### GeezTextArea
 
 Props:
-- `defaultGeez?: boolean` - Enable Geez mode by default (default: `true`)
-- `className?: string` - Additional CSS classes for the textarea field
-- `wrapperClassName?: string` - Additional CSS classes for the wrapper
-- `textareaClassName?: string` - Additional CSS classes for the textarea field
-- `buttonClassName?: string` - Additional CSS classes for the toggle button
-- `...TextareaHTMLAttributes` - All standard HTML textarea attributes with full TypeScript support
+- `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
+- `...TextareaHTMLAttributes` - All standard HTML textarea attributes (including `className`) with full TypeScript support
 
 ### Type Exports
 
@@ -238,9 +228,19 @@ The library is written in TypeScript and provides comprehensive type definitions
 - React 18 or 19
 - TypeScript 5+ (optional)
 
+## Issues & Support
+
+We welcome your feedback and contributions! 
+
+- **Found a bug?** [Open an issue](https://github.com/tewodrosbirhanu/geez-input/issues)
+- **Have a feature request?** [Create an issue](https://github.com/tewodrosbirhanu/geez-input/issues) and let's discuss it
+- **Questions or suggestions?** Feel free to [start a discussion](https://github.com/tewodrosbirhanu/geez-input/issues)
+
+This repository is actively maintained and **open for issues**. We appreciate all contributions, bug reports, and feature requests from the community!
+
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+Contributions are welcome! Whether you're fixing bugs, adding features, improving documentation, or adding test coverage, we'd love your help. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started.
 
 ## License
 
