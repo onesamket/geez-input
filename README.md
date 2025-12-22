@@ -2,6 +2,12 @@
 
 A type-safe React library for Geez (Ethiopic) script input with phonetic keyboard support. Write Amharic, Tigrinya, and other Ethiopic languages using Latin characters that automatically transform to Geez script.
 
+## About Geez Script
+
+Geez script (ግዕዝ), also known as Ethiopic script, is an ancient writing system used for [Amharic](https://en.wikipedia.org/wiki/Amharic) and other Ethiopian Semitic languages. It's an alphasyllabary where each character represents a consonant-vowel combination. This library makes it easy to type Geez script using familiar Latin characters with phonetic mappings, supporting labialized forms (wa-series) and all standard syllable transformations.
+
+**📖 Learn more about Amharic and its writing system:** [Wikipedia - Amharic](https://en.wikipedia.org/wiki/Amharic)
+
 ## Features
 
 - **Fully Type-Safe**: Built with TypeScript for complete IntelliSense support and autocomplete
@@ -222,9 +228,19 @@ The library is written in TypeScript and provides comprehensive type definitions
 - React 18 or 19
 - TypeScript 5+ (optional)
 
+## Issues & Support
+
+We welcome your feedback and contributions! 
+
+- **Found a bug?** [Open an issue](https://github.com/tewodrosbirhanu/geez-input/issues)
+- **Have a feature request?** [Create an issue](https://github.com/tewodrosbirhanu/geez-input/issues) and let's discuss it
+- **Questions or suggestions?** Feel free to [start a discussion](https://github.com/tewodrosbirhanu/geez-input/issues)
+
+This repository is actively maintained and **open for issues**. We appreciate all contributions, bug reports, and feature requests from the community!
+
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+Contributions are welcome! Whether you're fixing bugs, adding features, improving documentation, or adding test coverage, we'd love your help. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started.
 
 ## License
 
