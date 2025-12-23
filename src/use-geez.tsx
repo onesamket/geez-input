@@ -42,7 +42,7 @@ import type { GeezOptions } from "./types"
  * \`\`\`
  */
 export const useGeez = (options: GeezOptions = {}) => {
-  const { enabled = true, onTransform } = options
+  const { onTransform } = options
 
   /**
    * Keyboard event handler that transforms input to Geez script
@@ -59,7 +59,6 @@ export const useGeez = (options: GeezOptions = {}) => {
    */
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      if (!enabled) return
 
       // Allow special keys to work normally (navigation, editing, etc.)
       const specialKeys = [
@@ -110,7 +109,7 @@ export const useGeez = (options: GeezOptions = {}) => {
         setter(result.transformedValue)
       } else {
         // Fallback: set value directly (works for uncontrolled components)
-        ;(target as any).value = result.transformedValue
+        ; (target as any).value = result.transformedValue
       }
 
       // Create a proper InputEvent that React will recognize
@@ -152,7 +151,7 @@ export const useGeez = (options: GeezOptions = {}) => {
 
       if (onTransform) onTransform(result)
     },
-    [enabled, onTransform],
+    [onTransform],
   )
 
   return { onKeyDown }

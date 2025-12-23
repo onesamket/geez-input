@@ -5,7 +5,7 @@
  * const mapping: PhoneticMap = { 'h': 'ህ', 'l': 'ል' }
  * ```
  */
-export type PhoneticMap = Record<string, string>
+export type PhoneticMap = Record<string, string>;
 
 /**
  * Syllable mapping with vowel modifications for each consonant
@@ -16,29 +16,27 @@ export type PhoneticMap = Record<string, string>
  * }
  * ```
  */
-export type SyllableMap = Record<string, Record<string, string>>
+export type SyllableMap = Record<string, Record<string, string>>;
 
 /**
  * Result of a character transformation operation
  */
 export interface EngineResult {
   /** The complete transformed text value */
-  transformedValue: string
+  transformedValue: string;
   /** The new cursor position after transformation */
-  newCursorPosition: number
+  newCursorPosition: number;
   /** Whether this transformation replaced existing characters */
-  isReplacement: boolean
+  isReplacement: boolean;
 }
 
 /**
  * Keyboard configuration settings
- * @deprecated Not currently used in the library
+ * @deprecated Not currently used in the library but will be used in the future
  */
 export interface KeyboardConfig {
-  /** Whether the Geez keyboard is enabled */
-  enabled: boolean
   /** The phonetic standard to use */
-  standard: "GFF" | "Custom"
+  mode: "geez" | "latin";
 }
 
 /**
@@ -49,12 +47,7 @@ export interface GeezOptions {
    * Callback function triggered after each transformation
    * @param result - The result of the transformation
    */
-  onTransform?: (result: EngineResult) => void
-  /**
-   * Whether Geez transformation is enabled
-   * @default true
-   */
-  enabled?: boolean
+  onTransform?: (result: EngineResult) => void;
 }
 
 /**
@@ -62,9 +55,15 @@ export interface GeezOptions {
  */
 export interface TransformStats {
   /** Input character that triggered the transformation */
-  inputChar: string
+  inputChar: string;
   /** Output character(s) after transformation */
-  outputChar: string
+  outputChar: string;
   /** Type of transformation performed */
-  transformType: "consonant" | "syllable" | "punctuation" | "multi-consonant" | "double-vowel" | "passthrough"
+  transformType:
+    | "consonant"
+    | "syllable"
+    | "punctuation"
+    | "multi-consonant"
+    | "double-vowel"
+    | "passthrough";
 }

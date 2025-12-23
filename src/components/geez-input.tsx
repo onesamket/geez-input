@@ -56,7 +56,7 @@ export interface GeezInputProps
  */
 export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
   ({ mode = "geez", className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
-    const { onKeyDown: onKeyDownGeez } = useGeez({ enabled: mode === "geez" })
+    const { onKeyDown: onKeyDownGeez } = useGeez()
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       // Only call Geez handler when mode is "geez"
