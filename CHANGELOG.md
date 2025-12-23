@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.9] - 2025-12-23
+
+### Improved
+- Enhanced type definitions with better JSDoc documentation
+- Improved code examples in type definitions
+- Better documentation for `SyllableMap` and `PhoneticMap` types
+
+## [1.0.7] - 2025-12-22
+
+### Changed
+- Package build and distribution improvements
+
+## [1.0.6] - 2025-12-22
+
+### Changed
+- Build configuration updates
+
+## [1.0.5] - 2025-12-21
+
+### Changed
+- Package metadata improvements
+
+## [1.0.4] - 2025-12-21
+
+### Changed
+- Minor version bump for npm publication
+
 ## [1.0.3] - 2025-12-21
 
 ### Improved
