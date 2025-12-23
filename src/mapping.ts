@@ -60,13 +60,13 @@ export const CONSONANTS: Record<string, string> = {
  * - i (ሳልስ/Salis) - i modification
  * - aa/A (ራብዕ/Rabee) - aa modification
  * - ee/E (ኃምስ/Hamis) - ee modification
- * - o (ሳድስ/Sadis) - o modification
- * - ua (ሳብዕ/Sabe) - ua modification (not available for all)
+ * - o (ሳብዕ/Sabei) - o modification
+ * - wa (ዲቃላ/Dikaala) - wa modification
  *
  * @example
  * \`\`\`ts
  * SYLLABLES['ህ']['a'] // returns 'ሀ'
- * SYLLABLES['ል']['ua'] // returns 'ሏ'
+ * SYLLABLES['ል']['wa'] // returns 'ሏ'
  * \`\`\`
  */
 export const SYLLABLES: Record<string, Record<string, string>> = {
@@ -88,7 +88,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ሃ",
     ee: "ሄ",
     o: "ሆ",
-    ua: "ኋ",
     wa: "ኋ",
     wi: "ኊ",
     we: "ኈ",
@@ -112,7 +111,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     ee: "ሌ",
     o: "ሎ",
     wa: "ሏ",
-    ua: "ሏ",
   },
   ም: {
     e: "መ",
@@ -121,7 +119,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ማ",
     ee: "ሜ",
     o: "ሞ",
-    ua: "ሟ",
     wa: "ሟ",
   },
   ር: {
@@ -131,7 +128,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ራ",
     ee: "ሬ",
     o: "ሮ",
-    ua: "ሯ",
     wa: "ሯ",
   },
   ስ: {
@@ -141,7 +137,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ሳ",
     ee: "ሴ",
     o: "ሶ",
-    ua: "ሷ",
     wa: "ሷ",
   },
   ሽ: {
@@ -151,7 +146,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ሻ",
     ee: "ሼ",
     o: "ሾ",
-    ua: "ሿ",
     wa: "ሿ",
   },
   ቅ: {
@@ -161,7 +155,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ቃ",
     ee: "ቄ",
     o: "ቆ",
-    ua: "ቋ",
     wa: "ቋ",
     wi: "ቊ",
     waa: "ቋ",
@@ -177,7 +170,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ባ",
     ee: "ቤ",
     o: "ቦ",
-    ua: "ቧ",
     wa: "ቧ",
   },
   ት: {
@@ -187,7 +179,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ታ",
     ee: "ቴ",
     o: "ቶ",
-    ua: "ቷ",
     wa: "ቷ",
   },
   ች: {
@@ -197,7 +188,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ቻ",
     ee: "ቼ",
     o: "ቾ",
-    ua: "ቿ",
     wa: "ቿ",
   },
   ን: {
@@ -207,7 +197,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ና",
     ee: "ኔ",
     o: "ኖ",
-    ua: "ኗ",
     wa: "ኗ",
   },
   ኝ: {
@@ -217,7 +206,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ኛ",
     ee: "ኜ",
     o: "ኞ",
-    ua: "ኟ",
     wa: "ኟ",
   },
   ክ: {
@@ -227,7 +215,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ካ",
     ee: "ኬ",
     o: "ኮ",
-    ua: "ኳ",
     wa: "ኳ",
     wi: "ኲ",
     waa: "ኳ",
@@ -243,7 +230,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ዋ",
     ee: "ዌ",
     o: "ዎ",
-    ua: "",
   },
   ዝ: {
     e: "ዘ",
@@ -252,7 +238,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ዛ",
     ee: "ዜ",
     o: "ዞ",
-    ua: "ዟ",
     wa: "ዟ",
   },
   ዥ: {
@@ -262,7 +247,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ዣ",
     ee: "ዤ",
     o: "ዦ",
-    ua: "ዧ",
     wa: "ዧ",
   },
   ይ: {
@@ -280,7 +264,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ጃ",
     ee: "ጄ",
     o: "ጆ",
-    ua: "ጇ",
     wa: "ጇ",
   },
   ድ: {
@@ -290,7 +273,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ዳ",
     ee: "ዴ",
     o: "ዶ",
-    ua: "ዷ",
     wa: "ዷ",
   },
   ግ: {
@@ -300,7 +282,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ጋ",
     ee: "ጌ",
     o: "ጎ",
-    ua: "ጓ",
     wa: "ጓ",
     wi: "ጒ",
     waa: "ጓ",
@@ -316,7 +297,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ጣ",
     ee: "ጤ",
     o: "ጦ",
-    ua: "ጧ",
     wa: "ጧ",
   },
   ጭ: {
@@ -326,7 +306,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ጫ",
     ee: "ጬ",
     o: "ጮ",
-    ua: "ጯ",
     wa: "ጯ",
   },
   ጵ: {
@@ -336,7 +315,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ጳ",
     ee: "ጴ",
     o: "ጶ",
-    ua: "ጷ",
     wa: "ጷ",
   },
   ጽ: {
@@ -346,7 +324,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ጻ",
     ee: "ጼ",
     o: "ጾ",
-    ua: "ጿ",
     wa: "ጿ",
   },
   ፍ: {
@@ -356,7 +333,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ፋ",
     ee: "ፌ",
     o: "ፎ",
-    ua: "ፏ",
     wa: "ፏ",
   },
   ፕ: {
@@ -366,7 +342,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ፓ",
     ee: "ፔ",
     o: "ፖ",
-    ua: "ፗ",
     wa: "ፗ",
   },
   ቭ: {
@@ -376,7 +351,6 @@ export const SYLLABLES: Record<string, Record<string, string>> = {
     a: "ቫ",
     ee: "ቬ",
     o: "ቮ",
-    ua: "ቯ",
     wa: "ቯ",
   },
 };
