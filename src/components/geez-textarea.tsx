@@ -53,7 +53,7 @@ export interface GeezTextAreaProps
  */
 export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
   ({ mode = "geez", className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
-    const { onKeyDown: onKeyDownGeez } = useGeez({ enabled: mode === "geez" })
+    const { onKeyDown: onKeyDownGeez } = useGeez()
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       // Only call Geez handler when mode is "geez"
