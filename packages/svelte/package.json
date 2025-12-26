@@ -1,0 +1,74 @@
+{
+  "name": "geez-input-svelte",
+  "version": "1.0.1",
+  "description": "Type-safe Svelte library for Geez (Ethiopic) script input with phonetic keyboard support",
+  "keywords": [
+    "geez",
+    "ethiopic",
+    "amharic",
+    "tigrinya",
+    "svelte",
+    "typescript",
+    "keyboard",
+    "input",
+    "phonetic"
+  ],
+  "homepage": "https://github.com/onesamket/geez-input/packages/svelte#readme",
+  "bugs": {
+    "url": "https://github.com/onesamket/geez-input/packages/svelte/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onesamket/geez-input.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Tewodros Birhanu",
+    "email": "onesamket@gmail.com",
+    "url": "https://github.com/onesamket"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "prepublishOnly": "npm run build",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:bun": "bun test --dom --preload ./bun.test.setup.ts"
+  },
+  "dependencies": {
+    "geez-input": "^1.0.11",
+    "testing-library": "^0.0.2"
+  },
+  "peerDependencies": {
+    "geez-input": "*",
+    "svelte": "^4.0.0 || ^5.0.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/svelte": "^4.0.3",
+    "@testing-library/user-event": "^14.5.2",
+    "@vitest/ui": "^1.0.0",
+    "jsdom": "^27.3.0",
+    "svelte": "^5.0.0",
+    "typescript": "^5",
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "^4.0.0",
+    "vitest": "^4.0.16"
+  }
+}
