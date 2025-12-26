@@ -9,38 +9,164 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as FrameworksRouteImport } from './routes/frameworks'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DocsIndexRouteImport } from './routes/docs/index'
+import { Route as DocsSoonRouteImport } from './routes/docs/soon'
+import { Route as DocsReactRouteImport } from './routes/docs/react'
+import { Route as DocsGuideRouteImport } from './routes/docs/guide'
+import { Route as DocsGettingStartedRouteImport } from './routes/docs/getting-started'
+import { Route as DocsCoreRouteImport } from './routes/docs/core'
+import { Route as DocsApiRouteImport } from './routes/docs/api'
 
+const FrameworksRoute = FrameworksRouteImport.update({
+  id: '/frameworks',
+  path: '/frameworks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsIndexRoute = DocsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsSoonRoute = DocsSoonRouteImport.update({
+  id: '/soon',
+  path: '/soon',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsReactRoute = DocsReactRouteImport.update({
+  id: '/react',
+  path: '/react',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsGuideRoute = DocsGuideRouteImport.update({
+  id: '/guide',
+  path: '/guide',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsGettingStartedRoute = DocsGettingStartedRouteImport.update({
+  id: '/getting-started',
+  path: '/getting-started',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsCoreRoute = DocsCoreRouteImport.update({
+  id: '/core',
+  path: '/core',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsApiRoute = DocsApiRouteImport.update({
+  id: '/api',
+  path: '/api',
+  getParentRoute: () => DocsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/docs': typeof DocsRouteWithChildren
+  '/frameworks': typeof FrameworksRoute
+  '/docs/api': typeof DocsApiRoute
+  '/docs/core': typeof DocsCoreRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/guide': typeof DocsGuideRoute
+  '/docs/react': typeof DocsReactRoute
+  '/docs/soon': typeof DocsSoonRoute
+  '/docs/': typeof DocsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/frameworks': typeof FrameworksRoute
+  '/docs/api': typeof DocsApiRoute
+  '/docs/core': typeof DocsCoreRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/guide': typeof DocsGuideRoute
+  '/docs/react': typeof DocsReactRoute
+  '/docs/soon': typeof DocsSoonRoute
+  '/docs': typeof DocsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/docs': typeof DocsRouteWithChildren
+  '/frameworks': typeof FrameworksRoute
+  '/docs/api': typeof DocsApiRoute
+  '/docs/core': typeof DocsCoreRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/guide': typeof DocsGuideRoute
+  '/docs/react': typeof DocsReactRoute
+  '/docs/soon': typeof DocsSoonRoute
+  '/docs/': typeof DocsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/docs'
+    | '/frameworks'
+    | '/docs/api'
+    | '/docs/core'
+    | '/docs/getting-started'
+    | '/docs/guide'
+    | '/docs/react'
+    | '/docs/soon'
+    | '/docs/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/frameworks'
+    | '/docs/api'
+    | '/docs/core'
+    | '/docs/getting-started'
+    | '/docs/guide'
+    | '/docs/react'
+    | '/docs/soon'
+    | '/docs'
+  id:
+    | '__root__'
+    | '/'
+    | '/docs'
+    | '/frameworks'
+    | '/docs/api'
+    | '/docs/core'
+    | '/docs/getting-started'
+    | '/docs/guide'
+    | '/docs/react'
+    | '/docs/soon'
+    | '/docs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DocsRoute: typeof DocsRouteWithChildren
+  FrameworksRoute: typeof FrameworksRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/frameworks': {
+      id: '/frameworks'
+      path: '/frameworks'
+      fullPath: '/frameworks'
+      preLoaderRoute: typeof FrameworksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +174,84 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs/': {
+      id: '/docs/'
+      path: '/'
+      fullPath: '/docs/'
+      preLoaderRoute: typeof DocsIndexRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/soon': {
+      id: '/docs/soon'
+      path: '/soon'
+      fullPath: '/docs/soon'
+      preLoaderRoute: typeof DocsSoonRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/react': {
+      id: '/docs/react'
+      path: '/react'
+      fullPath: '/docs/react'
+      preLoaderRoute: typeof DocsReactRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/guide': {
+      id: '/docs/guide'
+      path: '/guide'
+      fullPath: '/docs/guide'
+      preLoaderRoute: typeof DocsGuideRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/getting-started': {
+      id: '/docs/getting-started'
+      path: '/getting-started'
+      fullPath: '/docs/getting-started'
+      preLoaderRoute: typeof DocsGettingStartedRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/core': {
+      id: '/docs/core'
+      path: '/core'
+      fullPath: '/docs/core'
+      preLoaderRoute: typeof DocsCoreRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/api': {
+      id: '/docs/api'
+      path: '/api'
+      fullPath: '/docs/api'
+      preLoaderRoute: typeof DocsApiRouteImport
+      parentRoute: typeof DocsRoute
+    }
   }
 }
 
+interface DocsRouteChildren {
+  DocsApiRoute: typeof DocsApiRoute
+  DocsCoreRoute: typeof DocsCoreRoute
+  DocsGettingStartedRoute: typeof DocsGettingStartedRoute
+  DocsGuideRoute: typeof DocsGuideRoute
+  DocsReactRoute: typeof DocsReactRoute
+  DocsSoonRoute: typeof DocsSoonRoute
+  DocsIndexRoute: typeof DocsIndexRoute
+}
+
+const DocsRouteChildren: DocsRouteChildren = {
+  DocsApiRoute: DocsApiRoute,
+  DocsCoreRoute: DocsCoreRoute,
+  DocsGettingStartedRoute: DocsGettingStartedRoute,
+  DocsGuideRoute: DocsGuideRoute,
+  DocsReactRoute: DocsReactRoute,
+  DocsSoonRoute: DocsSoonRoute,
+  DocsIndexRoute: DocsIndexRoute,
+}
+
+const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DocsRoute: DocsRouteWithChildren,
+  FrameworksRoute: FrameworksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
