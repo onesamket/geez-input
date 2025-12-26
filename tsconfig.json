@@ -18,5 +18,9 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.lib.json" }, { "path": "./tsconfig.node.json" }]
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.lib.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }

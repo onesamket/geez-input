@@ -27,7 +27,7 @@ npm install geez-input
 ## Quick Start
 
 ```tsx
-import { GeezInput, GeezTextArea } from 'geez-input'
+import { GeezInput, GeezTextArea } from "geez-input";
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
       <GeezInput placeholder="Type in Geez..." />
       <GeezTextArea placeholder="Write longer text..." />
     </div>
-  )
+  );
 }
 ```
 
@@ -44,8 +44,8 @@ function App() {
 The components provide full TypeScript autocomplete for all HTML input/textarea attributes:
 
 ```tsx
-import { GeezInput, GeezTextArea } from 'geez-input'
-import type { GeezInputProps, GeezTextAreaProps } from 'geez-input'
+import { GeezInput, GeezTextArea } from "geez-input";
+import type { GeezInputProps, GeezTextAreaProps } from "geez-input";
 
 function MyForm() {
   return (
@@ -64,8 +64,8 @@ function MyForm() {
         id="name-input"
         aria-label="Full name input"
         aria-required="true"
-        onFocus={(e) => console.log('Focused')}
-        onBlur={(e) => console.log('Blurred')}
+        onFocus={(e) => console.log("Focused")}
+        onBlur={(e) => console.log("Blurred")}
         onChange={(e) => console.log(e.target.value)}
       />
 
@@ -81,12 +81,12 @@ function MyForm() {
         name="story"
         id="story-textarea"
         aria-label="Story textarea"
-        onFocus={(e) => console.log('Focused')}
-        onBlur={(e) => console.log('Blurred')}
+        onFocus={(e) => console.log("Focused")}
+        onBlur={(e) => console.log("Blurred")}
         onChange={(e) => console.log(e.target.value)}
       />
     </>
-  )
+  );
 }
 ```
 
@@ -97,15 +97,16 @@ function MyForm() {
 A styled input component with built-in Geez phonetic keyboard support.
 
 **Props:**
+
 - All standard HTML input attributes (`type`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `pattern`, `autoComplete`, `autoFocus`, `name`, `id`, `aria-*`, `className`, etc.)
 - `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
 
 ```tsx
-import { GeezInput } from 'geez-input'
-import { useState } from 'react'
+import { GeezInput } from "geez-input";
+import { useState } from "react";
 
 function MyForm() {
-  const [name, setName] = useState('')
+  const [name, setName] = useState("");
 
   return (
     <GeezInput
@@ -116,7 +117,7 @@ function MyForm() {
       maxLength={50}
       autoComplete="name"
     />
-  )
+  );
 }
 ```
 
@@ -125,11 +126,12 @@ function MyForm() {
 A styled textarea component for longer text input.
 
 **Props:**
+
 - All standard HTML textarea attributes (`rows`, `cols`, `placeholder`, `value`, `onChange`, `onFocus`, `onBlur`, `required`, `disabled`, `readOnly`, `maxLength`, `minLength`, `wrap`, `spellCheck`, `name`, `id`, `aria-*`, `className`, etc.)
 - `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
 
 ```tsx
-import { GeezTextArea } from 'geez-input'
+import { GeezTextArea } from "geez-input";
 
 function MyForm() {
   return (
@@ -139,7 +141,7 @@ function MyForm() {
       required
       maxLength={500}
     />
-  )
+  );
 }
 ```
 
@@ -148,6 +150,7 @@ function MyForm() {
 The library uses intuitive phonetic mappings:
 
 ### Consonants
+
 - `h` → ህ
 - `l` → ል
 - `m` → ም
@@ -155,18 +158,23 @@ The library uses intuitive phonetic mappings:
 - `ch` → ች
 
 ### Syllables
+
 Type a consonant followed by a vowel:
+
 - `he` → ሀ
 - `lu` → ሉ
 - `mi` → ሚ
 - `sha` → ሻ
 
 ### Double Vowels
+
 Type the same vowel twice for alternate forms:
+
 - `ha` → ሃ
 - `lee` → ሌ
 
 ### Punctuation
+
 - `:` → ፡ (word separator)
 - `::` → ። (sentence ending)
 - `,` → ፣
@@ -186,27 +194,26 @@ Type phonetically to get Geez text:
 #### GeezInput
 
 Props:
+
 - `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
 - `...InputHTMLAttributes` - All standard HTML input attributes (including `className`) with full TypeScript support
 
 #### GeezTextArea
 
 Props:
+
 - `mode?: "geez" | "latin"` - Input mode: "geez" for phonetic transformation, "latin" for standard input (default: `"geez"`)
 - `...TextareaHTMLAttributes` - All standard HTML textarea attributes (including `className`) with full TypeScript support
 
 ### Type Exports
 
 ```tsx
-import type { 
-  GeezInputProps, 
-  GeezTextAreaProps 
-} from 'geez-input'
+import type { GeezInputProps, GeezTextAreaProps } from "geez-input";
 
 // Use in your own components
 type MyInputProps = GeezInputProps & {
-  label: string
-}
+  label: string;
+};
 
 function MyCustomInput({ label, ...props }: MyInputProps) {
   return (
@@ -214,7 +221,7 @@ function MyCustomInput({ label, ...props }: MyInputProps) {
       <label>{label}</label>
       <GeezInput {...props} />
     </div>
-  )
+  );
 }
 ```
 
@@ -230,7 +237,7 @@ The library is written in TypeScript and provides comprehensive type definitions
 
 ## Issues & Support
 
-We welcome your feedback and contributions! 
+We welcome your feedback and contributions!
 
 - **Found a bug?** [Open an issue](https://github.com/tewodrosbirhanu/geez-input/issues)
 - **Have a feature request?** [Create an issue](https://github.com/tewodrosbirhanu/geez-input/issues) and let's discuss it
@@ -244,5 +251,4 @@ Contributions are welcome! Whether you're fixing bugs, adding features, improvin
 
 ## License
 
-MIT  [LICENSE](LICENSE)
-
+MIT [LICENSE](LICENSE)

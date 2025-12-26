@@ -1,18 +1,17 @@
-import type React from "react"
-import { forwardRef } from "react"
-import { useGeez } from "../use-geez"
+import type React from "react";
+import { forwardRef } from "react";
+import { useGeez } from "../use-geez";
 
 /**
  * Props for the GeezInput component
  * Extends all standard HTML input attributes
  */
-export interface GeezInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface GeezInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
    * Input mode: "geez" for phonetic transformation, "latin" for standard input
    * @default "geez"
    */
-  mode?: "geez" | "latin"
+  mode?: "geez" | "latin";
 }
 
 /**
@@ -55,26 +54,36 @@ export interface GeezInputProps
  * \`\`\`
  */
 export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
-  ({ mode = "geez", className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
-    const { onKeyDown: onKeyDownGeez } = useGeez()
+  (
+    {
+      mode = "geez",
+      className,
+      onChange,
+      onKeyDown: onKeyDownProp,
+      value,
+      ...props
+    },
+    ref
+  ) => {
+    const { onKeyDown: onKeyDownGeez } = useGeez();
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       // Only call Geez handler when mode is "geez"
       if (mode === "geez") {
-        onKeyDownGeez(e)
+        onKeyDownGeez(e);
       }
       // Call user-provided handler
       if (onKeyDownProp) {
-        onKeyDownProp(e)
+        onKeyDownProp(e);
       }
-    }
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       // Ensure onChange is called for controlled components
       if (onChange) {
-        onChange(e)
+        onChange(e);
       }
-    }
+    };
 
     return (
       <input
@@ -85,8 +94,8 @@ export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
         onChange={handleChange}
         className={className}
       />
-    )
-  },
-)
+    );
+  }
+);
 
-GeezInput.displayName = "GeezInput"
+GeezInput.displayName = "GeezInput";

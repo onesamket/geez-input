@@ -1,4 +1,4 @@
-src/
+package/
 scripts/
 public/
 *.config.ts
@@ -6,6 +6,12 @@ public/
 tsconfig*.json
 .gitignore
 .eslintrc.cjs
+.eslintrc
+.eslintignore
+.commitlintrc
+.prettierrc
+.prettierignore
+.changeset/
 index.html
 vite-env.d.ts
 node_modules/

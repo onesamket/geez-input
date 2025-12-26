@@ -1,18 +1,17 @@
-import type React from "react"
-import { forwardRef } from "react"
-import { useGeez } from "../use-geez"
+import type React from "react";
+import { forwardRef } from "react";
+import { useGeez } from "../use-geez";
 
 /**
  * Props for the GeezTextArea component
  * Extends all standard HTML textarea attributes
  */
-export interface GeezTextAreaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface GeezTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   /**
    * Input mode: "geez" for phonetic transformation, "latin" for standard input
    * @default "geez"
    */
-  mode?: "geez" | "latin"
+  mode?: "geez" | "latin";
 }
 
 /**
@@ -52,26 +51,36 @@ export interface GeezTextAreaProps
  * \`\`\`
  */
 export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
-  ({ mode = "geez", className, onChange, onKeyDown: onKeyDownProp, value, ...props }, ref) => {
-    const { onKeyDown: onKeyDownGeez } = useGeez()
+  (
+    {
+      mode = "geez",
+      className,
+      onChange,
+      onKeyDown: onKeyDownProp,
+      value,
+      ...props
+    },
+    ref
+  ) => {
+    const { onKeyDown: onKeyDownGeez } = useGeez();
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       // Only call Geez handler when mode is "geez"
       if (mode === "geez") {
-        onKeyDownGeez(e)
+        onKeyDownGeez(e);
       }
       // Call user-provided handler
       if (onKeyDownProp) {
-        onKeyDownProp(e)
+        onKeyDownProp(e);
       }
-    }
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       // Ensure onChange is called for controlled components
       if (onChange) {
-        onChange(e)
+        onChange(e);
       }
-    }
+    };
 
     return (
       <textarea
@@ -82,8 +91,8 @@ export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
         onChange={handleChange}
         className={className}
       />
-    )
-  },
-)
+    );
+  }
+);
 
-GeezTextArea.displayName = "GeezTextArea"
+GeezTextArea.displayName = "GeezTextArea";

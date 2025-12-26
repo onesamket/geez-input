@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.9] - 2025-12-23
 
 ### Improved
+
 - Enhanced type definitions with better JSDoc documentation
 - Improved code examples in type definitions
 - Better documentation for `SyllableMap` and `PhoneticMap` types
@@ -15,26 +16,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.7] - 2025-12-22
 
 ### Changed
+
 - Package build and distribution improvements
 
 ## [1.0.6] - 2025-12-22
 
 ### Changed
+
 - Build configuration updates
 
 ## [1.0.5] - 2025-12-21
 
 ### Changed
+
 - Package metadata improvements
 
 ## [1.0.4] - 2025-12-21
 
 ### Changed
+
 - Minor version bump for npm publication
 
 ## [1.0.3] - 2025-12-21
 
 ### Improved
+
 - **Enhanced TypeScript Support**: Improved type definitions for full autocomplete support
 - **Better Type Safety**: Interface now properly extends all HTML input/textarea attributes
 - **Improved Documentation**: Added comprehensive TypeScript usage examples
@@ -42,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Better JSDoc documentation for all props and attributes
 
 ### Fixed
+
 - Fixed TypeScript autocomplete not showing all HTML input attributes
 - Fixed TypeScript autocomplete not showing all HTML textarea attributes
 - Improved type definitions for better IDE support
@@ -49,11 +56,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.2] - 2025-12-20
 
 ### Changed
+
 - Version bump for npm publication
 
 ## [1.0.1] - 2025-12-20
 
 ### Added
+
 - Initial release of Geez Library
 - `GeezInput` component with phonetic keyboard support
 - `GeezTextArea` component for longer text
@@ -74,6 +83,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Form library compatibility (React Hook Form, etc.)
 
 ### Documentation
+
 - Complete API reference
 - Interactive code examples
 - Installation guide

@@ -120,12 +120,12 @@ export class GeezEngine {
           key === "a"
             ? "wa"
             : key === "i"
-            ? "wi"
-            : key === "e"
-            ? "we"
-            : key === "u"
-            ? "wu"
-            : null;
+              ? "wi"
+              : key === "e"
+                ? "we"
+                : key === "u"
+                  ? "wu"
+                  : null;
 
         if (waSeriesKey && charBeforeWSyllables[waSeriesKey]) {
           return {
