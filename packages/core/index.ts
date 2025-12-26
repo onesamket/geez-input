@@ -23,3 +23,10 @@ export {
   PUNCTUATION,
 } from "./mapping";
 export type { EngineResult, GeezOptions, TransformStats } from "./types";
+
+// Re-export React components for backward compatibility
+export { GeezInput } from "../react/geez-input";
+export { GeezTextArea } from "../react/geez-textarea";
+export { useGeez } from "../react/use-geez";
+export type { GeezInputProps } from "../react/geez-input";
+export type { GeezTextAreaProps } from "../react/geez-textarea";
