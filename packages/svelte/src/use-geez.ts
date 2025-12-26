@@ -25,10 +25,10 @@ export function useGeez(
   node: HTMLInputElement | HTMLTextAreaElement,
   options: GeezOptions & { mode?: "geez" | "latin" } = {}
 ) {
-  const { mode = "geez", onTransform } = options;
-
+  // We need to access options.mode dynamically to support updates
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (mode !== "geez") return;
+    const currentMode = options.mode || "geez";
+    if (currentMode !== "geez") return;
 
     // Allow special keys to work normally (navigation, editing, etc.)
     const specialKeys = [
@@ -118,7 +118,7 @@ export function useGeez(
       }
     });
 
-    if (onTransform) onTransform(result);
+    if (options.onTransform) options.onTransform(result);
   };
 
   node.addEventListener("keydown", handleKeyDown as EventListener);

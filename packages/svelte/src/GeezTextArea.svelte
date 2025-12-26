@@ -2,13 +2,13 @@
   import { useGeez } from "./use-geez";
 
   interface Props {
-    value?: string | $bindable();
+    value?: string;
     placeholder?: string;
     mode?: "geez" | "latin";
     className?: string;
   }
 
-  let { value = $bindable(""), placeholder = "", mode = "geez", className = "" }: Props = $props();
+  let { value = $bindable(""), placeholder = "", mode = "geez", className = "", ...rest }: Props = $props();
 </script>
 
 <textarea
@@ -16,7 +16,7 @@
   {placeholder}
   class={className}
   use:useGeez={{ mode }}
-  {...$restProps}
+  {...rest}
 ></textarea>
 
 <style>

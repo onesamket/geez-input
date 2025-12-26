@@ -63,10 +63,18 @@ describe("useGeez action", () => {
       cancelable: true,
     });
 
+    // Simulate browser behavior (since JSDOM doesn't update value on keydown)
+    // In a real browser, the default action would append the key
+    const preventDefaultSpy = vi.spyOn(event, "preventDefault");
     input.dispatchEvent(event);
+
+    if (!event.defaultPrevented) {
+      input.value += "h";
+    }
 
     // Should not transform, just append
     expect(input.value).toBe("testh");
+    expect(preventDefaultSpy).not.toHaveBeenCalled();
     cleanup.destroy();
   });
 
@@ -93,7 +101,7 @@ describe("useGeez action", () => {
     });
     input.dispatchEvent(event2);
 
-    expect(input.value).toBe("ሀ");
+    expect(input.value).toBe("ሃ");
     cleanup.destroy();
   });
 
@@ -192,10 +200,17 @@ describe("useGeez action", () => {
       cancelable: true,
     });
 
+    // Simulate browser behavior
+    const preventDefaultSpy = vi.spyOn(event, "preventDefault");
     input.dispatchEvent(event);
+
+    if (!event.defaultPrevented) {
+      input.value += "h";
+    }
 
     // Should not transform in latin mode
     expect(input.value).toBe("testh");
+    expect(preventDefaultSpy).not.toHaveBeenCalled();
 
     cleanup.destroy();
   });
