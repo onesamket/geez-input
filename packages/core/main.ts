@@ -26,7 +26,18 @@
  * ### Components
  * - {@link GeezInput} - Styled input with Geez keyboard
  * - {@link GeezTextArea} - Styled textarea with Geez keyboard
+ *
+ * ### Engine
+ * - {@link GeezEngine} - Core transformation engine for integrating with other frameworks
  */
 
-export * from "./components/geez-input";
-export * from "./components/geez-textarea";
+export * from "../react/geez-input";
+export * from "../react/geez-textarea";
+export { GeezEngine } from "./engine";
+export type { EngineResult, GeezOptions, TransformStats } from "./types";
+export {
+  CONSONANTS,
+  SYLLABLES,
+  MULTI_CONSONANTS,
+  PUNCTUATION,
+} from "./mapping";

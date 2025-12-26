@@ -4,6 +4,6 @@
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["package"],
+  "include": ["package", "packages/test", "packages/react", "packages/vite-env.d.tsx", "packages/core/engine.ts", "packages/core/main.ts", "packages/core/mapping.ts", "packages/core/types.ts"],
   "exclude": ["package/**/*.stories.tsx", "package/**/*.test.tsx"]
 }

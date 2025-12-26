@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { GeezEngine } from "../engine";
+import { GeezEngine } from "../core/engine";
 
 describe("WA-Series Romanizations", () => {
   describe("K-series (ከ) - labialized forms", () => {

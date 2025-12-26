@@ -1,7 +1,7 @@
 import type React from "react";
 import { useCallback } from "react";
-import { GeezEngine } from "./engine";
-import type { GeezOptions } from "./types";
+import { GeezEngine } from "../core/engine";
+import type { GeezOptions } from "../core/types";
 
 /**
  * React hook for adding Geez phonetic keyboard functionality to input elements
