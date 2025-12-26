@@ -9,14 +9,14 @@ export default defineConfig({
     react(),
     libInjectCss(),
     dts({
-      include: ["src"],
+      include: ["package"],
       tsconfigPath: resolve(__dirname, "tsconfig.lib.json"),
     }),
   ],
   build: {
     copyPublicDir: false,
     lib: {
-      entry: resolve(__dirname, "src/main.ts"),
+      entry: resolve(__dirname, "package/main.ts"),
       formats: ["es"],
     },
     rollupOptions: {
@@ -30,7 +30,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: ["./src/test/setup.ts"],
-    include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    setupFiles: ["./package/test/setup.ts"],
+    include: ["package/**/*.{test,spec}.{ts,tsx}"],
   },
 });
