@@ -239,9 +239,9 @@ The library is written in TypeScript and provides comprehensive type definitions
 
 We welcome your feedback and contributions!
 
-- **Found a bug?** [Open an issue](https://github.com/tewodrosbirhanu/geez-input/issues)
-- **Have a feature request?** [Create an issue](https://github.com/tewodrosbirhanu/geez-input/issues) and let's discuss it
-- **Questions or suggestions?** Feel free to [start a discussion](https://github.com/tewodrosbirhanu/geez-input/issues)
+- **Found a bug?** [Open an issue](https://github.com/onesamket/geez-input/issues)
+- **Have a feature request?** [Create an issue](https://github.com/onesamket/geez-input/issues) and let's discuss it
+- **Questions or suggestions?** Feel free to [start a discussion](https://github.com/onesamket/geez-input/issues)
 
 This repository is actively maintained and **open for issues**. We appreciate all contributions, bug reports, and feature requests from the community!
 
