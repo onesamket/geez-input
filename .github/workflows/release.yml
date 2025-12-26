@@ -2,18 +2,9 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - main
   workflow_dispatch:
-    inputs:
-      version:
-        description: "Version type (major, minor, patch)"
-        required: true
-        type: choice
-        options:
-          - major
-          - minor
-          - patch
 
 jobs:
   release:
@@ -44,11 +35,23 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Generate changelog and bump version
-        id: version_dispatch
-        if: github.event_name == 'workflow_dispatch'
+      - name: Check for changesets
+        id: changesets
         run: |
-          npm run release:${{ github.event.inputs.version }}
+          # Check if there are any changeset files (excluding README.md)
+          if find .changeset -name "*.md" -not -name "README.md" | grep -q .; then
+            echo "has_changesets=true" >> $GITHUB_OUTPUT
+            echo "Changesets found, proceeding with release"
+          else
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+            echo "No changesets found, skipping release"
+          fi
+
+      - name: Version packages
+        if: steps.changesets.outputs.has_changesets == 'true'
+        id: version
+        run: |
+          npm run changeset:version
           VERSION=$(node -p "require('./package.json').version")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
@@ -60,50 +63,24 @@ jobs:
           fi
           echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
 
-      - name: Extract version from tag
-        id: version_push
-        if: github.event_name == 'push'
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "tag=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
-
-          # Get previous tag for changelog link
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
-          if [ -z "$PREV_TAG" ]; then
-            PREV_TAG="HEAD"
-          fi
-          echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
-
-      - name: Set version outputs
-        id: version
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "version=${{ steps.version_dispatch.outputs.version }}" >> $GITHUB_OUTPUT
-            echo "tag=${{ steps.version_dispatch.outputs.tag }}" >> $GITHUB_OUTPUT
-            echo "prev_tag=${{ steps.version_dispatch.outputs.prev_tag }}" >> $GITHUB_OUTPUT
-          else
-            echo "version=${{ steps.version_push.outputs.version }}" >> $GITHUB_OUTPUT
-            echo "tag=${{ steps.version_push.outputs.tag }}" >> $GITHUB_OUTPUT
-            echo "prev_tag=${{ steps.version_push.outputs.prev_tag }}" >> $GITHUB_OUTPUT
-          fi
-
       - name: Build project
+        if: steps.changesets.outputs.has_changesets == 'true'
         run: npm run build
 
       - name: Run tests
+        if: steps.changesets.outputs.has_changesets == 'true'
         run: npm run test:run
 
       - name: Extract changelog
+        if: steps.changesets.outputs.has_changesets == 'true'
         id: changelog
         run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            # Extract the latest changelog entry
-            CHANGELOG=$(awk '/^## \[/{if(flag) exit; flag=1} flag' CHANGELOG.md | sed '1d' | sed '/^## \[/,$d')
+          VERSION="${{ steps.version.outputs.version }}"
+          # Extract changelog for this version from CHANGELOG.md
+          if [ -f CHANGELOG.md ]; then
+            CHANGELOG=$(awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" CHANGELOG.md | sed '/^$/d')
           else
-            # For tag pushes, extract changelog for this version
-            VERSION="${{ steps.version.outputs.version }}"
-            CHANGELOG=$(awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" CHANGELOG.md)
+            CHANGELOG="See changesets for details"
           fi
 
           # Escape for GitHub output
@@ -114,7 +91,14 @@ jobs:
           echo "$CHANGELOG" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - name: Publish to npm
+        if: steps.changesets.outputs.has_changesets == 'true'
+        run: npm run changeset:publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Create GitHub Release
+        if: steps.changesets.outputs.has_changesets == 'true'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.version.outputs.tag }}
@@ -129,13 +113,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Publish to npm
-        if: github.event_name == 'workflow_dispatch'
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Push changes
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.changesets.outputs.has_changesets == 'true'
         run: |
           git push origin main --follow-tags

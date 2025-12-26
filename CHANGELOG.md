@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Minor Changes
+
+- Extracted core library from React with backward compatibility maintained. The core transformation engine (`GeezEngine`) is now available as a framework-agnostic module via `geez-input/core`, enabling use with any JavaScript framework. React components remain fully backward compatible and can be imported from `geez-input/react`. This change enables framework-specific implementations (Svelte, Vue) while maintaining the existing React API.
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
