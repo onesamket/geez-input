@@ -9,28 +9,37 @@ export default defineConfig({
     react(),
     libInjectCss(),
     dts({
-      include: ["package"],
+      include: ["packages/core", "packages/react"],
       tsconfigPath: resolve(__dirname, "tsconfig.lib.json"),
     }),
   ],
   build: {
     copyPublicDir: false,
     lib: {
-      entry: resolve(__dirname, "package/main.ts"),
+      entry: {
+        main: resolve(__dirname, "packages/core/main.ts"),
+        react: resolve(__dirname, "packages/react/index.ts"),
+        core: resolve(__dirname, "packages/core/index.ts"),
+      },
       formats: ["es"],
     },
     rollupOptions: {
       external: ["react", "react/jsx-runtime", "react-dom"],
       output: {
         assetFileNames: "assets/[name][extname]",
-        entryFileNames: "[name].js",
+        entryFileNames: (chunkInfo) => {
+          if (chunkInfo.name === "main") {
+            return "[name].js";
+          }
+          return "[name]/index.js";
+        },
       },
     },
   },
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: ["./package/test/setup.ts"],
-    include: ["package/**/*.{test,spec}.{ts,tsx}"],
+    setupFiles: ["./packages/test/setup.ts"],
+    include: ["packages/**/*.{test,spec}.{ts,tsx}"],
   },
 });

@@ -18,5 +18,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["package"]
+  "include": ["package", "packages/test", "packages/react", "packages/vite-env.d.tsx", "packages/core/engine.ts", "packages/core/main.ts", "packages/core/mapping.ts", "packages/core/types.ts"]
 }

@@ -1,6 +1,6 @@
 {
   "name": "geez-input",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "Type-safe React library for Geez (Ethiopic) script input with phonetic keyboard support",
   "keywords": [
     "geez",
@@ -38,6 +38,14 @@
     ".": {
       "import": "./dist/main.js",
       "types": "./dist/main.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react/index.js",
+      "types": "./dist/react/index.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
     }
   },
   "files": [

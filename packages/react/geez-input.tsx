@@ -1,12 +1,12 @@
 import type React from "react";
 import { forwardRef } from "react";
-import { useGeez } from "../use-geez";
+import { useGeez } from "./use-geez";
 
 /**
- * Props for the GeezTextArea component
- * Extends all standard HTML textarea attributes
+ * Props for the GeezInput component
+ * Extends all standard HTML input attributes
  */
-export interface GeezTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface GeezInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
    * Input mode: "geez" for phonetic transformation, "latin" for standard input
    * @default "geez"
@@ -15,10 +15,10 @@ export interface GeezTextAreaProps extends React.TextareaHTMLAttributes<HTMLText
 }
 
 /**
- * Textarea component with built-in Geez phonetic keyboard support
+ * Input component with built-in Geez phonetic keyboard support
  *
  * Features:
- * - Phonetic transformation for longer text
+ * - Phonetic transformation (type 'hello' → 'ሀልሎ')
  * - Full support for controlled and uncontrolled component patterns
  * - Forward ref support for form libraries
  * - Supports any CSS framework via standard className prop
@@ -26,19 +26,19 @@ export interface GeezTextAreaProps extends React.TextareaHTMLAttributes<HTMLText
  * @example
  * \`\`\`tsx
  * // Basic usage
- * <GeezTextArea placeholder="Write your story..." rows={5} />
+ * <GeezInput placeholder="Type in Geez..." />
  * \`\`\`
  *
  * @example
  * \`\`\`tsx
  * // Controlled component
  * function MyForm() {
- *   const [content, setContent] = useState('')
+ *   const [name, setName] = useState('')
  *   return (
- *     <GeezTextArea
- *       value={content}
- *       onChange={(e) => setContent(e.target.value)}
- *       placeholder="Enter your text"
+ *     <GeezInput
+ *       value={name}
+ *       onChange={(e) => setName(e.target.value)}
+ *       placeholder="Enter your name"
  *     />
  *   )
  * }
@@ -46,11 +46,14 @@ export interface GeezTextAreaProps extends React.TextareaHTMLAttributes<HTMLText
  *
  * @example
  * \`\`\`tsx
- * // Start with Latin mode
- * <GeezTextArea mode="latin" placeholder="Type here..." />
+ * // With form library (React Hook Form)
+ * function MyForm() {
+ *   const { register } = useForm()
+ *   return <GeezInput {...register('name')} />
+ * }
  * \`\`\`
  */
-export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
+export const GeezInput = forwardRef<HTMLInputElement, GeezInputProps>(
   (
     {
       mode = "geez",
@@ -64,7 +67,7 @@ export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
   ) => {
     const { onKeyDown: onKeyDownGeez } = useGeez();
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       // Only call Geez handler when mode is "geez"
       if (mode === "geez") {
         onKeyDownGeez(e);
@@ -75,7 +78,7 @@ export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
       }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       // Ensure onChange is called for controlled components
       if (onChange) {
         onChange(e);
@@ -83,7 +86,7 @@ export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
     };
 
     return (
-      <textarea
+      <input
         {...props}
         {...(value !== undefined && { value })}
         ref={ref}
@@ -95,4 +98,4 @@ export const GeezTextArea = forwardRef<HTMLTextAreaElement, GeezTextAreaProps>(
   }
 );
 
-GeezTextArea.displayName = "GeezTextArea";
+GeezInput.displayName = "GeezInput";
