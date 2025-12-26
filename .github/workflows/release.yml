@@ -1,0 +1,141 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version type (major, minor, patch)"
+        required: true
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Generate changelog and bump version
+        id: version_dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          npm run release:${{ github.event.inputs.version }}
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+          # Get previous tag for changelog link
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREV_TAG" ]; then
+            PREV_TAG="HEAD"
+          fi
+          echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+
+      - name: Extract version from tag
+        id: version_push
+        if: github.event_name == 'push'
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
+
+          # Get previous tag for changelog link
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREV_TAG" ]; then
+            PREV_TAG="HEAD"
+          fi
+          echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+
+      - name: Set version outputs
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "version=${{ steps.version_dispatch.outputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ steps.version_dispatch.outputs.tag }}" >> $GITHUB_OUTPUT
+            echo "prev_tag=${{ steps.version_dispatch.outputs.prev_tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ steps.version_push.outputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ steps.version_push.outputs.tag }}" >> $GITHUB_OUTPUT
+            echo "prev_tag=${{ steps.version_push.outputs.prev_tag }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test:run
+
+      - name: Extract changelog
+        id: changelog
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            # Extract the latest changelog entry
+            CHANGELOG=$(awk '/^## \[/{if(flag) exit; flag=1} flag' CHANGELOG.md | sed '1d' | sed '/^## \[/,$d')
+          else
+            # For tag pushes, extract changelog for this version
+            VERSION="${{ steps.version.outputs.version }}"
+            CHANGELOG=$(awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" CHANGELOG.md)
+          fi
+
+          # Escape for GitHub output
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: Release ${{ steps.version.outputs.tag }}
+          body: |
+            ## Changes
+
+            ${{ steps.changelog.outputs.changelog }}
+
+            ---
+            **Full Changelog**: https://github.com/${{ github.repository }}/compare/${{ steps.version.outputs.prev_tag }}...${{ steps.version.outputs.tag }}
+          draft: false
+          prerelease: false
+
+      - name: Publish to npm
+        if: github.event_name == 'workflow_dispatch'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Push changes
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git push origin main --follow-tags
