@@ -9,6 +9,7 @@ export default function Header() {
 
   const navLinks = [
     { href: '#playground', label: 'Playground' },
+    { href: '#frameworks', label: 'Frameworks' },
     { href: '#guide', label: 'Guide' },
     { href: '#form-demo', label: 'Integration' },
   ];
@@ -110,7 +111,7 @@ export default function Header() {
               target="_blank"
               rel="noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2 rounded-lg hover:bg-[#343a46] transition-colors text-[#ebecf0] font-medium flex items-center gap-2"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-[#343a46] transition-colors text-[#ebecf0] font-medium"
             >
               GitHub
               <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24">

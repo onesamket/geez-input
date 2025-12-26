@@ -77,7 +77,7 @@ function HomePage() {
                 Drop-in Ready
               </h3>
               <p className="text-[#ebecf0] leading-relaxed text-[15px] sm:text-[17px]">
-                Works with any React framework. Compatible with Next.js, Remix, Vite, and standard HTML forms.
+                Framework-agnostic core engine with React components available now. More frameworks coming soon.
               </p>
             </div>
           </div>
@@ -102,6 +102,85 @@ function HomePage() {
           <FormDemo />
         </section>
 
+        {/* Framework Support */}
+        <div className="w-full h-px bg-[#343a46]" />
+        <section id="frameworks" className="px-4 sm:px-6 py-16 sm:py-20 md:py-24 max-w-[1400px] mx-auto">
+          <div className="mb-12 text-center px-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#f6f7f9] mb-3 sm:mb-4">Framework Support</h2>
+            <p className="text-[#ebecf0] text-base sm:text-lg max-w-2xl mx-auto">
+              Built with a modular architecture. Use the core engine with any framework, or choose ready-made components.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {/* React */}
+            <div className="bg-[#23272f] border-2 border-[#149eca]/30 p-6 sm:p-8 rounded-2xl hover:border-[#149eca]/50 transition-all relative">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-[#f6f7f9]">React</h3>
+                <span className="px-2 py-1 text-xs font-bold uppercase tracking-wider text-[#149eca] bg-[#149eca]/10 rounded border border-[#149eca]/20">Available</span>
+              </div>
+              <p className="text-[#ebecf0] text-sm mb-4 leading-relaxed">
+                Ready-to-use components and hooks with full TypeScript support.
+              </p>
+              <CodeBlock code={`import { GeezInput } from "geez-input/react";`} language="tsx" filename="React" />
+            </div>
+
+            {/* Svelte */}
+            <div className="bg-[#23272f] border border-[#343a46] p-6 sm:p-8 rounded-2xl relative opacity-75">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-[#f6f7f9]">Svelte</h3>
+                <span className="px-2 py-1 text-xs font-bold uppercase tracking-wider text-[#99a1b3] bg-[#343a46] rounded border border-[#343a46]">Coming Soon</span>
+              </div>
+              <p className="text-[#99a1b3] text-sm mb-4 leading-relaxed">
+                Svelte components coming soon! Use the core engine directly in the meantime.
+              </p>
+              <div className="bg-[#16181d] border border-[#343a46] rounded-lg p-4 text-[#5e6677] text-xs font-mono">
+                {/* Placeholder for code */}
+              </div>
+            </div>
+
+            {/* Angular */}
+            <div className="bg-[#23272f] border border-[#343a46] p-6 sm:p-8 rounded-2xl relative opacity-75">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-[#f6f7f9]">Angular</h3>
+                <span className="px-2 py-1 text-xs font-bold uppercase tracking-wider text-[#99a1b3] bg-[#343a46] rounded border border-[#343a46]">Coming Soon</span>
+              </div>
+              <p className="text-[#99a1b3] text-sm mb-4 leading-relaxed">
+                Angular directives coming soon! Use the core engine directly in the meantime.
+              </p>
+              <div className="bg-[#16181d] border border-[#343a46] rounded-lg p-4 text-[#5e6677] text-xs font-mono">
+                {/* Placeholder for code */}
+              </div>
+            </div>
+
+            {/* Vue */}
+            <div className="bg-[#23272f] border border-[#343a46] p-6 sm:p-8 rounded-2xl relative opacity-75">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-[#f6f7f9]">Vue</h3>
+                <span className="px-2 py-1 text-xs font-bold uppercase tracking-wider text-[#99a1b3] bg-[#343a46] rounded border border-[#343a46]">Coming Soon</span>
+              </div>
+              <p className="text-[#99a1b3] text-sm mb-4 leading-relaxed">
+                Vue components coming soon! Use the core engine directly in the meantime.
+              </p>
+              <div className="bg-[#16181d] border border-[#343a46] rounded-lg p-4 text-[#5e6677] text-xs font-mono">
+                {/* Placeholder for code */}
+              </div>
+            </div>
+          </div>
+
+          {/* Core Engine Section */}
+          <div className="mt-12 bg-[#23272f] border border-[#343a46] rounded-2xl p-6 sm:p-8">
+            <h3 className="text-xl font-bold text-[#f6f7f9] mb-3">Core Engine</h3>
+            <p className="text-[#ebecf0] text-sm mb-4 leading-relaxed">
+              Framework-agnostic core that works with any JavaScript framework or vanilla JS.
+            </p>
+            <CodeBlock code={`import { GeezEngine } from "geez-input/core";
+
+const result = GeezEngine.transform("h", "", "a");
+// result.transformedValue === "ሀ"`} language="ts" filename="Core Engine" />
+          </div>
+        </section>
+
         {/* Docs */}
         <div className="w-full h-px bg-[#343a46]" />
         <section id="installation" className="px-4 sm:px-6 py-16 sm:py-20 md:py-24 max-w-4xl mx-auto space-y-16 sm:space-y-20 md:space-y-24">
@@ -111,6 +190,111 @@ function HomePage() {
             <div className="space-y-0">
               <CodeBlock code="npm install geez-input" language="bash" />
               <CodeBlock code="bun add geez-input" language="bash" />
+            </div>
+          </div>
+
+          {/* React Usage Guide */}
+          <div id="react-usage">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#f6f7f9] mb-4 sm:mb-6 px-4 sm:px-0">React Usage</h2>
+            <p className="text-[#ebecf0] mb-6 sm:mb-8 text-base sm:text-lg px-4 sm:px-0">
+              Get started with React components in minutes.
+            </p>
+
+            <div className="space-y-6 px-4 sm:px-0">
+              <div>
+                <h3 className="text-lg font-bold text-[#f6f7f9] mb-3">Basic Components</h3>
+                <CodeBlock code={`import { GeezInput, GeezTextArea } from "geez-input/react";
+
+function App() {
+  return (
+    <div>
+      <GeezInput placeholder="Type in Geez..." />
+      <GeezTextArea placeholder="Write longer text..." rows={5} />
+    </div>
+  );
+}`} language="tsx" filename="App.tsx" />
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-[#f6f7f9] mb-3">Controlled Components</h3>
+                <CodeBlock code={`import { GeezInput } from "geez-input/react";
+import { useState } from "react";
+
+function MyForm() {
+  const [name, setName] = useState("");
+
+  return (
+    <GeezInput
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      placeholder="Enter your name"
+    />
+  );
+}`} language="tsx" filename="MyForm.tsx" />
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-[#f6f7f9] mb-3">Custom Hook</h3>
+                <CodeBlock code={`import { useGeez } from "geez-input/react";
+
+function CustomInput() {
+  const { onKeyDown } = useGeez({
+    onTransform: (result) => {
+      console.log("Transformed:", result.transformedValue);
+    },
+  });
+
+  return <input onKeyDown={onKeyDown} />;
+}`} language="tsx" filename="CustomInput.tsx" />
+              </div>
+            </div>
+          </div>
+
+          {/* Core Engine Usage */}
+          <div id="core-usage">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#f6f7f9] mb-4 sm:mb-6 px-4 sm:px-0">Core Engine</h2>
+            <p className="text-[#ebecf0] mb-6 sm:mb-8 text-base sm:text-lg px-4 sm:px-0">
+              Use the core engine for custom integrations with any framework.
+            </p>
+
+            <div className="space-y-6 px-4 sm:px-0">
+              <div>
+                <h3 className="text-lg font-bold text-[#f6f7f9] mb-3">Basic Usage</h3>
+                <CodeBlock code={`import { GeezEngine } from "geez-input/core";
+
+const result = GeezEngine.transform("h", "", "a");
+// result.transformedValue === "ሀ"
+// result.newCursorPosition === 1
+// result.isReplacement === true`} language="ts" filename="transform.ts" />
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-[#f6f7f9] mb-3">Vanilla JavaScript Integration</h3>
+                <CodeBlock code={`import { GeezEngine } from "geez-input/core";
+
+const input = document.querySelector("input");
+
+input.addEventListener("keydown", (e) => {
+  // Skip special keys
+  if (e.key.length !== 1 || e.ctrlKey || e.metaKey) return;
+
+  e.preventDefault();
+
+  const target = e.target;
+  const { selectionStart, selectionEnd, value } = target;
+
+  const before = value.substring(0, selectionStart || 0);
+  const after = value.substring(selectionEnd || 0);
+
+  const result = GeezEngine.transform(before, after, e.key);
+
+  target.value = result.transformedValue;
+  target.setSelectionRange(
+    result.newCursorPosition,
+    result.newCursorPosition
+  );
+});`} language="ts" filename="vanilla-js.ts" />
+              </div>
             </div>
           </div>
 

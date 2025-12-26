@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GeezInput, GeezTextArea } from 'geez-input';
+import { GeezInput, GeezTextArea } from 'geez-input/react';
 import { useGeezMode } from '../providers/geez-mode-provider';
 
 const Demo: React.FC = () => {
